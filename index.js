@@ -4,8 +4,9 @@ const ytdl = require('ytdl-core');
 const app = express();
 app.use(cors());
 app.use(express.static('public'))
-app.listen(process.env.PORT || 80, () => {
-    console.log('Server Works !!! At port 4000');
+const port = process.env.PORT || 80
+app.listen(port, () => {
+    console.log(`Server Works !!! At port ${port}`);
 });
 app.get('/download', (req,res) => {
     const url = req.query.url;
