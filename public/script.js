@@ -38,20 +38,19 @@ const fileDownload = (data, filename, mime, bom) => {
 }
 
 convertBtn.addEventListener('click', () => {
-    // UrlInput.setAttribute("disabled", "disabled")
-    // convertBtn.setAttribute("disabled", "disabled")
+    UrlInput.setAttribute("disabled", "disabled")
+    convertBtn.setAttribute("disabled", "disabled")
 
-    window.location.href = `./download?url=${UrlInput.value}`;
+    fetch(`./download?url=${UrlInput.value}`, {
+        method:'GET'
+    })
+    .then(res => res.blob())
+    .then((res) => {
+        const fileName = `${Date.now()} - video.mp4`
+        fileDownload(res, fileName)
 
-
-    // fetch(`./download?url=${UrlInput.value}`, {
-    //     method:'GET'
-    // })
-    // .then((res) => {
-    //     const fileName = `${Date.now()} - video.mp4`
-    //     fileDownload(res, fileName, "video/mp4")
-    //     UrlInput.removeAttribute("disabled")
-    //     UrlInput.value = ""
-    //     convertBtn.removeAttribute("disabled")
-    // })
+        UrlInput.removeAttribute("disabled")
+        UrlInput.value = ""
+        convertBtn.removeAttribute("disabled")
+    })
 });
