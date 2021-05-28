@@ -2,27 +2,33 @@
     text-align: center;
 }
 .heading {
-    font-family: Arial;
+    font-family: Arial, serif;
     margin-top:40vh;
 }
-.URL-input, .convert-button {
+#url-input, #convert-button {
     font-size:1.3em;
     padding:5px 10px;
 }
-.URL-input {
-    border-radius:4px 0px 0px 4px;
+#url-input {
+    border-radius:4px 0 0 4px;
     width:30em;
     text-align: left;
     border:2px solid #EEEEEE;
     background: #EEEEEE;
     outline:none;
 }
-.URL-input:focus {
+#url-input:focus {
     border:2px solid #0485ff;
 }
-.convert-button {
+#convert-button {
     border-radius:0px 4px 4px 0px;
     border:2px solid #0485ff;
     background: #0485ff;
     color:white;
+    cursor: pointer;
+}
+
+#convert-button:disabled {
+    cursor: not-allowed;
+    background: lightgray;
 }
