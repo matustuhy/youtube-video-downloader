@@ -11,9 +11,7 @@ app.listen(port, () => {
 app.get('/download', (req,res) => {
     const url = req.query.url;
 
-    console.log(url)
-    res.header('Content-Disposition', 'attachment; filename="video.mp4"');
-    ytdl(url, {
-        format: 'mp4'
-    }).pipe(res);
+    const fileName = `${Date.now()} - video.mp4`
+    res.header('Content-Disposition', `attachment; filename="${fileName}"`);
+    ytdl(url, { format: 'mp4' }).pipe(res);
 });
