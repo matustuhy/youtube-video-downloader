@@ -13,5 +13,6 @@ app.get('/download', (req,res) => {
 
     const fileName = `${Date.now()} - video.mp4`
     res.header('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.header('Content-Type', "video/mp4");
     ytdl(url, { format: 'mp4' }).pipe(res);
 });
