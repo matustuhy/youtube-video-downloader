@@ -5,11 +5,11 @@
     font-family: Arial, serif;
     margin-top:40vh;
 }
-#url-input, #convert-button {
+#url-area, #convert-button {
     font-size:1.3em;
     padding:5px 10px;
 }
-#url-input {
+#url-area {
     border-radius:4px 0 0 4px;
     width:30em;
     text-align: left;
@@ -17,7 +17,7 @@
     background: #EEEEEE;
     outline:none;
 }
-#url-input:focus {
+#url-area:focus {
     border:2px solid #0485ff;
 }
 #convert-button {

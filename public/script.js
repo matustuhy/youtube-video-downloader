@@ -1,5 +1,5 @@
 const convertBtn = document.getElementById('convert-button');
-const UrlInput = document.getElementById('url-input');
+const urlArea = document.getElementById('url-area');
 
 const fileDownload = (data, filename, mime, bom) => {
     const blobData = (typeof bom !== 'undefined') ? [bom, data] : [data]
@@ -38,23 +38,19 @@ const fileDownload = (data, filename, mime, bom) => {
 }
 
 convertBtn.addEventListener('click', () => {
-    UrlInput.setAttribute("disabled", "disabled")
-    convertBtn.setAttribute("disabled", "disabled")
+    const urls = urlArea.value.split('\n')
 
-    let fileName = ""
-
-    fetch(`./download?url=${UrlInput.value}`, {
-        method:'GET'
-    })
-    .then(res => {
-        fileName = res.headers.get('File-Name')
-        return res.blob()
-    })
-    .then((res) => {
-        fileDownload(res, fileName)
-
-        UrlInput.removeAttribute("disabled")
-        UrlInput.value = ""
-        convertBtn.removeAttribute("disabled")
+    urls.forEach((url) => {
+        let fileName = ""
+        fetch(`./download?url=${url}`, {
+            method:'GET'
+        })
+            .then(res => {
+                fileName = res.headers.get('File-Name')
+                return res.blob()
+            })
+            .then((res) => {
+                fileDownload(res, fileName)
+            })
     })
 });
