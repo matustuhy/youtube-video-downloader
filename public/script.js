@@ -41,12 +41,16 @@ convertBtn.addEventListener('click', () => {
     UrlInput.setAttribute("disabled", "disabled")
     convertBtn.setAttribute("disabled", "disabled")
 
+    let fileName = ""
+
     fetch(`./download?url=${UrlInput.value}`, {
         method:'GET'
     })
-    .then(res => res.blob())
+    .then(res => {
+        fileName = res.headers.get('File-Name')
+        return res.blob()
+    })
     .then((res) => {
-        const fileName = `${Date.now()} - video.mp4`
         fileDownload(res, fileName)
 
         UrlInput.removeAttribute("disabled")

@@ -8,11 +8,13 @@ const port = process.env.PORT || 80
 app.listen(port, () => {
     console.log(`Server Works !!! At port ${port}`);
 });
-app.get('/download', (req,res) => {
+app.get('/download', async (req,res) => {
     const url = req.query.url;
+    const fileInfo = await ytdl.getInfo(url)
 
-    const fileName = `${Date.now()} - video.mp4`
+    const fileName = `${fileInfo.videoDetails.title}.mp4`
     res.header('Content-Disposition', `attachment; filename="${fileName}"`);
     res.header('Content-Type', "video/mp4");
+    res.header('File-Name', fileName);
     ytdl(url, { format: 'mp4' }).pipe(res);
 });
