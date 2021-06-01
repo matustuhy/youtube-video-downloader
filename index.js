@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 
 const app = express();
 
-const replacements = [[/'/g, ''], [/\|/g, ''], [/'/g, ''], [/\//g, ''], [/\?/g, ''], [/:/g, ''], [/;/g, ''], [/•/g, '']]
+const replacements = [[/'/g, ''], [/\|/g, ''], [/'/g, ''], [/\//g, ''], [/\?/g, ''], [/:/g, ''], [/;/g, ''], [/•/g, ''], [/’/g, '']]
 
 app.use(cors());
 app.use(express.static('public'))
