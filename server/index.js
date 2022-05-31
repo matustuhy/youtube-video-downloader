@@ -1,34 +1,48 @@
-const express = require('express');
-const cors = require('cors');
-const ytdl = require('ytdl-core');
+const express = require("express");
+const cors = require("cors");
+const ytdl = require("ytdl-core");
 
 const app = express();
 
-const replacements = [[/'/g, ''], [/\|/g, ''], [/'/g, ''], [/\//g, ''], [/\?/g, ''], [/:/g, ''], [/;/g, ''], [/•/g, ''], [/’/g, '']]
+const replacements = [
+  [/'/g, ""],
+  [/\|/g, ""],
+  [/'/g, ""],
+  [/\//g, ""],
+  [/\?/g, ""],
+  [/:/g, ""],
+  [/;/g, ""],
+  [/•/g, ""],
+  [/’/g, ""],
+];
 
 app.use(cors());
-app.use(express.static('../client/dist'))
+app.use(express.static("../client/dist"));
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 80;
 
 app.listen(port, () => {
-    console.log(`Server Works !!! At port ${port}`);
+  console.log(`Server Works !!! At port ${port}`);
 });
 
-app.get('/download', async (req,res) => {
-    const url = req.query.url;
-    const fileInfo = await ytdl.getInfo(url)
+app.get("/download", async (req, res) => {
+  const url = req.query.url;
 
-    let fileName = `${fileInfo.videoDetails.title}.mp4`
+  if (!url) {
+    res.status(400).send("Video URL missing");
+  }
+  const fileInfo = await ytdl.getInfo(url);
 
-    replacements.forEach(function(replacement) {
-        fileName = fileName.replace(replacement[0], replacement[1]);
-    });
+  let fileName = `${fileInfo.videoDetails.title}.mp4`;
 
-    console.log(fileName)
+  replacements.forEach(function (replacement) {
+    fileName = fileName.replace(replacement[0], replacement[1]);
+  });
 
-    res.header('Content-Disposition', `attachment; filename="${fileName}"`);
-    res.header('Content-Type', "video/mp4");
-    res.header('File-Name', fileName);
-    ytdl(url, { format: 'mp4' }).pipe(res);
+  console.log(fileName);
+
+  res.header("Content-Disposition", `attachment; filename="${fileName}"`);
+  res.header("Content-Type", "video/mp4");
+  res.header("File-Name", fileName);
+  ytdl(url, { format: "mp4" }).pipe(res);
 });
