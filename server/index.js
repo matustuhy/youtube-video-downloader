@@ -7,7 +7,7 @@ const app = express();
 const replacements = [[/'/g, ''], [/\|/g, ''], [/'/g, ''], [/\//g, ''], [/\?/g, ''], [/:/g, ''], [/;/g, ''], [/•/g, ''], [/’/g, '']]
 
 app.use(cors());
-app.use(express.static('public'))
+app.use(express.static('../client/dist'))
 
 const port = process.env.PORT || 80
 
