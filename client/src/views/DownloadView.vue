@@ -28,7 +28,7 @@ const download = () => {
 
   urls.forEach((url) => {
     let fileName = "";
-    fetch(`./download?url=${url}`, {
+    fetch(`${process.env.API_URL}/download?url=${url}`, {
       method: "GET",
     })
       .then((res) => {
