@@ -34,5 +34,6 @@ app.get('/download', async (req, res) => {
         ytdl(url, {format: 'mp4'}).pipe(res);
     } catch (e) {
         console.error(e.message)
+        res.status(500)
     }
 });
