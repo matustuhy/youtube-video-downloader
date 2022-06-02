@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const ytdl = require('ytdl-core');
+const latinize = require('latinize')
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.get('/download', async (req, res) => {
     replacements.forEach(function (replacement) {
         fileName = fileName.replace(replacement[0], replacement[1]);
     });
+
+    fileName = latinize(fileName)
 
     console.log("Downloading", fileName)
 
